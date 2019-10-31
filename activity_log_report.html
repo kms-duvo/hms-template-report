@@ -78,11 +78,6 @@
     text-align: right;
   }
 
-  .report-body .payment-type-detail {
-    font-size: 1.2em;
-    font-weight: bold;
-  }
-
   .logo .logo-title {
     color: #2B3A8B;
     font-weight: bold;
@@ -133,20 +128,16 @@
     color: black;
     background: #d4e5f9;
   }
-
-  .payment-type-table:last-child {
-    margin-bottom: 1em;
-  }
   
-  .report-info span {
-    margin-right: 1em;
-  }
-    
-  .report-info span:last-child {
+  .report-info span, .desc span {
+      margin-right: 1em;
+    }
+      
+  .report-info span:last-child, .desc span:last-child {
     margin-right: 0px;
   }
   
-  .report-info label {
+  .report-info label, .desc label {
     margin-right: 0.5em;
   }
 </style>
@@ -161,7 +152,7 @@
       <h1 class="page-title">USER ACTIVITY LOG</h1>
       <div class="report-info">
         <label>Export Date</label>
-        <span th:utext="'<b>' + ${reportDate} + '</b>'"></span>
+        <span th:utext="'<b>' + ${exportDate} + '</b>'"></span>
       </div>
     </div>
     <div class="report-body">
@@ -177,13 +168,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr th:each="summary: ${summaryReport.summaries}">
-            <td th:text="${summary.paymentName}"></td>
-            <td th:text="${#numbers.formatInteger(summary.startFloat,1,'COMMA')}"></td>
-            <td th:text="${#numbers.formatInteger(summary.received,1,'COMMA')}"></td>
-            <td th:text="${#numbers.formatInteger(summary.paidOut,1,'COMMA')}"></td>
-            <td th:text="${#numbers.formatInteger(summary.counted,1,'COMMA')}"></td>
-            <td th:text="${#numbers.formatInteger(summary.balance,1,'COMMA')}"></td>
+          <tr th:each="log: ${activityLogs}">
+            <td th:text="${log.userName}"></td>
+            <td th:text="${log.time}"></td>
+            <td th:text="${log.date}"></td>
+            <td th:text="${log.group}"></td>
+            <td th:text="${log.type}"></td>
+            <td class="desc" th:utext="${log.description}"></td>
           </tr>
         </tbody>
       </table>
