@@ -99,6 +99,8 @@
     color: black;
     font-weight: 600;
     border-bottom: 1px solid black;
+    padding-top: 5px;
+    padding-bottom: 5px;
   }
   
   tr:nth-child(even) {
@@ -112,15 +114,19 @@
     padding-bottom: 5px;
   }
   
-  .report-info span, .desc span {
+  .left-info {
+    float: left;
+  }
+  
+  .right-info span, .left-info span {
       margin-right: 1em;
     }
       
-  .report-info span:last-child, .desc span:last-child {
+  .right-info span:last-child, .left-info span:last-child {
     margin-right: 0px;
   }
   
-  .report-info label, .desc label {
+  .right-info label, .left-info label {
     margin-right: 0.5em;
   }
 </style>
@@ -131,11 +137,13 @@
       <div class="logo">
         <img th:src="@{${logo}}"/>
         <span class="logo-title" th:text="${propertyName}"></span>
-        <br></br><label>Filter:</label>
-        <span th:utext="'<b>' + ${month } + ${year} + '</b>'"></span>
       </div>
       <h1 class="page-title" th:text="${#strings.toUpperCase(reportName)}"></h1>
-      <div class="report-info">
+      <div class="left-info">
+        <label>Filter</label>
+        <span th:utext="'<b>' + ${month} + ' ' + ${year} + '</b>'"></span>
+      </div>
+      <div class="right-info">
         <label>Export Date</label>
         <span th:utext="'<b>' + ${exportDate} + '</b>'"></span>
       </div>
