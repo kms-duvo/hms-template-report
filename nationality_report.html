@@ -108,6 +108,8 @@
   td {
     vertical-align: baseline;
     word-wrap: normal;
+    padding-top: 5px;
+    padding-bottom: 5px;
   }
   
   .report-info span, .desc span {
@@ -129,7 +131,7 @@
       <div class="logo">
         <img th:src="@{${logo}}"/>
         <span class="logo-title" th:text="${propertyName}"></span>
-        <label>Filter:</label>
+        <br></br><label>Filter:</label>
         <span th:utext="'<b>' + ${month } + ${year} + '</b>'"></span>
       </div>
       <h1 class="page-title" th:text="${#strings.toUpperCase(reportName)}"></h1>
@@ -143,7 +145,7 @@
       <table>
         <thead>
           <tr>
-            <th style="width: 300px"></th>
+            <th style="width: 200px"></th>
             <th style="width: 100px"></th>
             <th style="width: 100px">Rooms</th>
             <th style="width: 100px">Rooms %</th>
