@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<style>
+  @font-face {
+    font-family: 'IBM Plex Sans';
+    font-weight: normal;
+    font-style: normal;
+    src: url(https://raw.githubusercontent.com/IBM/plex/master/IBM-Plex-Sans/fonts/complete/ttf/IBMPlexSans-Light.ttf);
+  }
+
+  @font-face {
+    font-family: 'IBM Plex Sans';
+    font-weight: bold;
+    font-style: normal;
+    src: url(https://raw.githubusercontent.com/IBM/plex/master/IBM-Plex-Sans/fonts/complete/ttf/IBMPlexSans-Bold.ttf);
+  }
+
+  @font-face {
+    font-family: 'Playfair Display';
+    font-weight: normal;
+    font-style: normal;
+    src: url(http://themes.googleusercontent.com/static/fonts/playfairdisplay/v7/2NBgzUtEeyB-Xtpr9bm1Cczai8e7xzqnKiVb1EwOy0E.ttf);
+  }
+
+  @page {
+    size: a4 landscape;
+    margin: 30px 20px 50px 20px;
+    font-family: 'IBM Plex Sans', sans-serif;
+
+    @bottom-center {
+      content: 'Page 'counter(page);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 12px;
+    }
+  }
+
+  html,
+  body {
+    font-size: 12px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    color: black;
+  }
+
+  .container {
+    padding: 0 1em 0 1em;
+    display: block;
+  }
+
+  .report-header {
+    display: table;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 0.5em;
+  }
+
+  .report-header>* {
+    display: block;
+  }
+
+  .report-header img {
+    width: 8.9em;
+    height: 5.6em;
+    display: block;
+    margin-bottom: 0.5em;
+  }
+
+  .report-header .page-title {
+    text-align: center;
+    font-size: 2em;
+    font-family: 'Playfair Display', serif;
+    color: black;
+  }
+
+  .report-header .report-info {
+    vertical-align: bottom;
+    text-align: right;
+  }
+
+  .logo .logo-title {
+    color: #2B3A8B;
+    font-weight: bold;
+    font-size: 12px;
+  }
+
+  .logo {
+    width: 300px;
+  }
+
+  table {
+    -fs-table-paginate: paginate;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th {
+    text-align: left;
+    color: black;
+    font-weight: 600;
+    border-bottom: 1px solid black;
+  }
+  
+  tr:nth-child(even) {
+    background: #f5f5f5
+  }
+
+  td {
+    vertical-align: baseline;
+    word-wrap: normal;
+  }
+  
+  .report-info span, .desc span {
+      margin-right: 1em;
+    }
+      
+  .report-info span:last-child, .desc span:last-child {
+    margin-right: 0px;
+  }
+  
+  .report-info label, .desc label {
+    margin-right: 0.5em;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="report-header">
+      <div class="logo">
+        <img th:src="@{${logo}}"/>
+        <span class="logo-title" th:text="${propertyName}"></span>
+        <label>Filter:</label>
+        <span th:utext="'<b>' + ${month } + ${year} + '</b>'"></span>
+      </div>
+      <h1 class="page-title" th:text="${#strings.toUpperCase(reportName)}"></h1>
+      <div class="report-info">
+        <label>Export Date</label>
+        <span th:utext="'<b>' + ${exportDate} + '</b>'"></span>
+      </div>
+    </div>
+    <span>Room Nights Statistics</span>
+    <div class="report-body">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 300px"></th>
+            <th style="width: 100px"></th>
+            <th style="width: 100px">Rooms</th>
+            <th style="width: 100px">Rooms %</th>
+            <th style="width: 100px">Persons</th>
+            <th style="width: 100px">Persons %</th>
+            <th style="width: 100px" th:text="${year - 1} + ' - Rooms'"></th>
+            <th style="width: 100px" th:text="${year - 1} + ' - Persons'"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="detail: ${details}">
+            <td th:text="${detail.countryName}"></td>
+            <td th:text="${detail.countryCode}"></td>
+            <td th:text="${detail.rooms}"></td>
+            <td th:text="${detail.roomsPercent}"></td>
+            <td th:text="${detail.persons}"></td>
+            <td th:text="${detail.personsPercent}"></td>
+            <td th:text="${detail.roomsInLastYear}"></td>
+            <td th:text="${detail.personsInLastYear}"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>
