@@ -56,7 +56,7 @@
   }
 
   .report-header>* {
-    display: block;
+    display: inline-block;
   }
 
   .report-header img {
@@ -71,11 +71,16 @@
     font-size: 2em;
     font-family: 'Playfair Display', serif;
     color: black;
+    width: 40%;
+    position: relative;
+    top: -20px;
   }
 
   .report-header .right-info {
     vertical-align: bottom;
     text-align: right;
+    width: 30%;
+    padding-bottom: 20px;
   }
 
   .logo .logo-title {
@@ -85,7 +90,7 @@
   }
 
   .logo {
-    width: 300px;
+    width: 30%;
   }
 
   table {
@@ -103,7 +108,7 @@
     padding-bottom: 5px;
   }
   
-  tr:nth-child(even) {
+  .report-body tr:nth-child(even) {
     background: #f5f5f5
   }
 
@@ -114,20 +119,12 @@
     padding-bottom: 5px;
   }
   
-  .left-info {
-    float: left;
-  }
-  
-  .right-info span, .left-info span {
-      margin-right: 1em;
-    }
-      
-  .right-info span:last-child, .left-info span:last-child {
-    margin-right: 0px;
-  }
-  
-  .right-info label, .left-info label {
+  .right-info label, .logo label {
     margin-right: 0.5em;
+  }
+  
+  .report-footer tr {
+    border-top: 1px solid black;
   }
 </style>
 </head>
@@ -137,12 +134,10 @@
       <div class="logo">
         <img th:src="@{${logo}}"/>
         <span class="logo-title" th:text="${propertyName}"></span>
-      </div>
-      <h1 class="page-title" th:text="${#strings.toUpperCase(reportName)}"></h1>
-      <div class="left-info">
-        <label>Filter</label>
+        <br></br><label>Filter</label>
         <span th:utext="'<b>' + ${month} + ' ' + ${year} + '</b>'"></span>
       </div>
+      <h1 class="page-title" th:text="${#strings.toUpperCase(reportName)}"></h1>
       <div class="right-info">
         <label>Export Date</label>
         <span th:utext="'<b>' + ${exportDate} + '</b>'"></span>
@@ -163,7 +158,7 @@
             <th style="width: 100px" th:text="${year - 1} + ' - Persons'"></th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="report-body">
           <tr th:each="detail: ${details}">
             <td th:text="${detail.countryName}"></td>
             <td th:text="${detail.countryCode}"></td>
@@ -173,6 +168,18 @@
             <td th:text="${detail.personsPercent}"></td>
             <td th:text="${detail.roomsInLastYear}"></td>
             <td th:text="${detail.personsInLastYear}"></td>
+          </tr>
+        </tbody>
+        <tbody class="report-footer">
+          <tr>
+            <td></td>
+            <td></td>
+            <td th:text="${totalRoom}"></td>
+            <td th:text="${totalRoomPercent}"></td>
+            <td th:text="${totalPerson}"></td>
+            <td th:text="${totalPersonPercent}"></td>
+            <td th:text="${totalRoomInLastYear}"></td>
+            <td th:text="${totalPersonInLastYear}"></td>
           </tr>
         </tbody>
       </table>
